@@ -12,13 +12,13 @@
 
 public struct OnboardingSlide{
     // MARK: Properties
-    var slideTitle: String
-    var subtitle: String
-    var subtitleDescription: String
-    var imageName: String
+    public var slideTitle: String
+    public var subtitle: String
+    public var subtitleDescription: String
+    public var imageName: String
     
     // MARK: Initializer
-    init(slideTitle: String, subtitle: String, subtitleDescription: String, imageName: String) {
+    public init(slideTitle: String, subtitle: String, subtitleDescription: String, imageName: String) {
         self.slideTitle = slideTitle
         self.subtitle = subtitle
         self.subtitleDescription = subtitleDescription
