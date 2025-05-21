@@ -3,7 +3,7 @@
 //  OnboardingKit
 //
 //  Created by Lisa Sydorova on 21.05.2025.
-//
+// 
 
 // MARK: OnboardingSlide structure
 
