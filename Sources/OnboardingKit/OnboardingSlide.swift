@@ -25,4 +25,3 @@ public struct OnboardingSlide{
         self.imageName = imageName
     }
 }
-
