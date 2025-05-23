@@ -21,15 +21,23 @@ public struct SlideOnboardingCustomView<VM:OnboardingViewModelProtocol, NextButt
     /// ProgressBar for onboarding flow
     let progressBar: ProgressBarContent
     
+    /// Theme for colors anf text
+    let theme: OnboardingTheme
+    private let themeStyle: OnboardingThemeStyle
+    
     //MARK: Initializer
     public init(viewModel: VM,
                 @ViewBuilder nextButton: () -> NextButtonContent,
                 @ViewBuilder startAppButton: () -> StartButtonContent,
-                @ViewBuilder progressBar: () -> ProgressBarContent) {
+                @ViewBuilder progressBar: () -> ProgressBarContent,
+                theme: OnboardingTheme = .default
+    ) {
         self.viewModel = viewModel
         self.nextButton = nextButton()
         self.startAppButton = startAppButton()
         self.progressBar = progressBar()
+        self.theme = theme
+        self.themeStyle = theme.style
     }
     
     // MARK: - Body
@@ -39,8 +47,10 @@ public struct SlideOnboardingCustomView<VM:OnboardingViewModelProtocol, NextButt
             VStack {
                 /// Main title for the onboarding flow
                 Text(viewModel.currentStep.slide.slideTitle)
-                    .font(.title3.bold())
+                    .font(themeStyle.titleFont)
                     .multilineTextAlignment(.center)
+                    .foregroundStyle(themeStyle.titleTextColor ?? .primary)
+                
                 
                 /// Placeholder for progress bar UI from package
                 Text("PLACEHOLDER FOR PROGRESS BAR")
@@ -64,10 +74,13 @@ public struct SlideOnboardingCustomView<VM:OnboardingViewModelProtocol, NextButt
             VStack {
                 /// First subtitle line, emphasised with headline font
                 Text(viewModel.currentStep.slide.subtitle)
-                    .font(.headline)
+                    .font(themeStyle.subtitleFont)
+                    .foregroundStyle(themeStyle.subtitleTextColor ?? .primary)
                 /// Second subtitle line, lighter with subHeadline font
                 Text(viewModel.currentStep.slide.subtitleDescription)
-                    .font(.subheadline)
+                    .font(themeStyle.descriptionFont)
+                    .foregroundStyle(themeStyle.descriptionTextColor ?? .primary)
+                    
             }
             .frame(height: 152)
             .multilineTextAlignment(.center)
@@ -78,8 +91,6 @@ public struct SlideOnboardingCustomView<VM:OnboardingViewModelProtocol, NextButt
             if !viewModel.currentStep.isLast {
                 VStack(spacing: 16) {
                     nextButton
-                        
-                    
                     Button("Skip") {
                         viewModel.showSkipConfirmation = true
                     }
@@ -92,7 +103,7 @@ public struct SlideOnboardingCustomView<VM:OnboardingViewModelProtocol, NextButt
             }
         }
         .animation(.easeInOut, value: viewModel.currentStep)
-        .preferredColorScheme(.dark)
+        .preferredColorScheme(themeStyle.preferedColorTheme)
         
         // MARK: - Skip Confirmation Alert
         .alert("Do you really want to skip onboarding?", isPresented: $viewModel.showSkipConfirmation) {
@@ -101,5 +112,6 @@ public struct SlideOnboardingCustomView<VM:OnboardingViewModelProtocol, NextButt
             }
             Button("No", role: .cancel) {}
         }
+        .background(themeStyle.backgroundColor)
     }
 }
