@@ -9,17 +9,20 @@ import SwiftUI
 
 // MARK: Public view for the onboarding flow with customable params
 @available(iOS 17.0, *)
-public struct SlideOnboardingCustomView<VM:OnboardingViewModelProtocol, NextButtonContent: View, StartButtonContent: View, ProgressBarContent: View>: View{
+public struct SlideOnboardingCustomView<VM:OnboardingViewModelProtocol, Step: OnboardingSlideStepProtocol>: View{
     //MARK: Properties
     /// Onboarding ViewModel
     @State private var viewModel: VM
     
     /// Buttons for onboarding flow
-    let nextButton: NextButtonContent
-    let startAppButton: StartButtonContent
+    let nextButton: AnyView
+    let nextButtonStyle: ButtonViewStyle
+    let startAppButton: AnyView
+    let startAppButtonStyle: ButtonViewStyle
     
     /// ProgressBar for onboarding flow
-    let progressBar: ProgressBarContent
+    let progressBar: AnyView
+    let progressBarStyle: ProgressBarViewStyle<Step>
     
     /// Theme for colors anf text
     let theme: OnboardingTheme
@@ -27,15 +30,20 @@ public struct SlideOnboardingCustomView<VM:OnboardingViewModelProtocol, NextButt
     
     //MARK: Initializer
     public init(viewModel: VM,
-                @ViewBuilder nextButton: () -> NextButtonContent,
-                @ViewBuilder startAppButton: () -> StartButtonContent,
-                @ViewBuilder progressBar: () -> ProgressBarContent,
+                nextButtonStyle: ButtonViewStyle,
+                startAppButtonStyle: ButtonViewStyle,
+                progressBarStyle: ProgressBarViewStyle<Step>,
                 theme: OnboardingTheme = .default
     ) {
         self.viewModel = viewModel
-        self.nextButton = nextButton()
-        self.startAppButton = startAppButton()
-        self.progressBar = progressBar()
+        self.nextButtonStyle = nextButtonStyle
+        self.nextButton = nextButtonStyle.button
+        
+        self.startAppButtonStyle = startAppButtonStyle
+        self.startAppButton = startAppButtonStyle.button
+        
+        self.progressBarStyle = progressBarStyle
+        self.progressBar = progressBarStyle.progressBar
         self.theme = theme
         self.themeStyle = theme.style
     }
@@ -53,9 +61,7 @@ public struct SlideOnboardingCustomView<VM:OnboardingViewModelProtocol, NextButt
                 
                 
                 /// Placeholder for progress bar UI from package
-                Text("PLACEHOLDER FOR PROGRESS BAR")
-                    .foregroundColor(.cyan)
-                    .background(Color.red)
+                progressBar
             }
             
             // MARK: - Image Section
