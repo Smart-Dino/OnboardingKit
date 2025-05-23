@@ -47,7 +47,7 @@ public struct OnboardingThemeStyle{
     
     // MARK: Initialiazer
     ///Custom init
-    public init(titleFont: Font, subtitleFont: Font, descriptionFont: Font, backgroundColor: Color, titleTextColor: Color, subtitleTextColor: Color, descriptionTextColor: Color, preferedColorTheme: ColorScheme?) {
+    public init(titleFont: Font, subtitleFont: Font, descriptionFont: Font, backgroundColor: Color?, titleTextColor: Color?, subtitleTextColor: Color?, descriptionTextColor: Color?, preferedColorTheme: ColorScheme?) {
         self.titleFont = titleFont
         self.subtitleFont = subtitleFont
         self.descriptionFont = descriptionFont

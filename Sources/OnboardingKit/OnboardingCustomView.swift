@@ -102,8 +102,6 @@ public struct SlideOnboardingCustomView<VM:OnboardingViewModelProtocol, NextButt
                 startAppButton
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(themeStyle.backgroundColor).ignoresSafeArea(.all)
         .animation(.easeInOut, value: viewModel.currentStep)
         .preferredColorScheme(themeStyle.preferedColorTheme)
         
@@ -114,5 +112,7 @@ public struct SlideOnboardingCustomView<VM:OnboardingViewModelProtocol, NextButt
             }
             Button("No", role: .cancel) {}
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(themeStyle.backgroundColor).ignoresSafeArea(.all)
     }
 }
