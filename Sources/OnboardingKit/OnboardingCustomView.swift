@@ -80,7 +80,7 @@ public struct SlideOnboardingCustomView<VM:OnboardingViewModelProtocol, NextButt
                 Text(viewModel.currentStep.slide.subtitleDescription)
                     .font(themeStyle.descriptionFont)
                     .foregroundStyle(themeStyle.descriptionTextColor ?? .primary)
-                    
+                
             }
             .frame(height: 152)
             .multilineTextAlignment(.center)
@@ -102,6 +102,8 @@ public struct SlideOnboardingCustomView<VM:OnboardingViewModelProtocol, NextButt
                 startAppButton
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(themeStyle.backgroundColor).ignoresSafeArea(.all)
         .animation(.easeInOut, value: viewModel.currentStep)
         .preferredColorScheme(themeStyle.preferedColorTheme)
         
@@ -112,6 +114,5 @@ public struct SlideOnboardingCustomView<VM:OnboardingViewModelProtocol, NextButt
             }
             Button("No", role: .cancel) {}
         }
-        .background(themeStyle.backgroundColor)
     }
 }
