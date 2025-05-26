@@ -12,10 +12,10 @@
 
 public struct OnboardingSlide{
     // MARK: Properties
-    public var slideTitle: String
-    public var subtitle: String
-    public var subtitleDescription: String
-    public var imageName: String
+    public let slideTitle: String
+    public let subtitle: String
+    public let subtitleDescription: String
+    public let imageName: String
     
     // MARK: Initializer
     public init(slideTitle: String, subtitle: String, subtitleDescription: String, imageName: String) {
