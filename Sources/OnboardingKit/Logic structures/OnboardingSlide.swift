@@ -10,7 +10,7 @@
 /// Representing an onboarding slide, which include:
 /// Title of the whole slide, Subtitle of App's feature, Description of App's feature, Image name for  App's feature
 
-public struct OnboardingSlide{
+public struct OnboardingSlide: Hashable{
     // MARK: Properties
     public let slideTitle: String
     public let subtitle: String

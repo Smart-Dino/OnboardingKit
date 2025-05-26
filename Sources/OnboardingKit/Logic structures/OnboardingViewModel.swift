@@ -11,16 +11,36 @@ import SwiftUI
 /// Includes connected enum for SlideStep needed for architecture
 @available(iOS 17.0, *)
 @Observable
-open class OnboardingViewModel<SlideStep: OnboardingSlideStepProtocol>{
+open class OnboardingViewModel{
+    
     // MARK: Properties
-    /// The current onboarding step shown
-    public var currentStep: SlideStep
-    /// Variable to know if skip bttn is needed to be shown
-    public var showSkipConfirmation: Bool = false
+    /// Special structure for Onboarding View
+    public struct State{
+        // MARK: Properties
+        public let allSteps: [OnboardingSlide]
+        /// The current onboarding step shown in the view.
+        public var currentStepIndex: Int = 0
+        public var currentStep: OnboardingSlide {
+            allSteps[currentStepIndex]
+        }
+        /// Variable to know if skip bttn is needed to be shown
+        public var showSkipConfirmation: Bool {
+            currentStepIndex < allSteps.count - 1 //&& currentStepIndex != 0
+        }
+        
+        // MARK: Initializer
+        public init(allSteps: [OnboardingSlide], currentStepIndex: Int) {
+            self.allSteps = allSteps
+            self.currentStepIndex = currentStepIndex
+        }
+    }
+    /// Property for the current statr on the View
+    public var state: State
     
     // MARK: Initializer
-    public init(currentStep: SlideStep) {
-        self.currentStep = currentStep
+    public init(state: State) {
+        precondition(!state.allSteps.isEmpty, "OnboardingViewModel: allSteps must not be empty")
+        self.state = state
     }
     
     // MARK: Methods

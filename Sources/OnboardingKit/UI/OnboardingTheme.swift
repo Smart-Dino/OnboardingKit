@@ -60,13 +60,6 @@ public struct OnboardingThemeStyle{
     
     ///Default init
     init(){
-        self.titleFont = .title3.bold()
-        self.subtitleFont = .headline
-        self.descriptionFont = .subheadline
-        self.preferedColorTheme = .dark
-        self.backgroundColor = nil
-        self.titleTextColor = nil
-        self.subtitleTextColor = nil
-        self.descriptionTextColor = nil
+        self.init(titleFont: .title3.bold(), subtitleFont: .headline, descriptionFont: .subheadline, backgroundColor: nil, titleTextColor: nil, subtitleTextColor: nil, descriptionTextColor: nil, preferedColorTheme: .dark)
     }
 }

@@ -20,7 +20,7 @@ import SwiftUI
 ///   Button("Restore Purchases") { ... }
 ///       .buttonStyle(FTSecondaryButtonStyle())
 ///   ```
-private struct FTSecondaryButtonStyle: ButtonStyle {
+public struct FTSecondaryButtonStyle: ButtonStyle {
     
     /// Initializes the primary button style.
     public init() { }

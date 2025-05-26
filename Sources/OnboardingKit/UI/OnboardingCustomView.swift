@@ -9,10 +9,13 @@ import SwiftUI
 
 // MARK: Public view for the onboarding flow with customable params
 @available(iOS 17.0, *)
-public struct SlideOnboardingCustomView<Step: OnboardingSlideStepProtocol>: View{
+public struct SlideOnboardingCustomView: View{
     //MARK: Properties
     /// Onboarding ViewModel
-    @State private var viewModel: OnboardingViewModel<Step>
+    @State private var viewModel: OnboardingViewModel
+    
+    /// Show Skip Button
+    @State private var showAlertSkipBinding: Bool = false
     
     /// Buttons for onboarding flow
     let nextButton: AnyView
@@ -22,20 +25,21 @@ public struct SlideOnboardingCustomView<Step: OnboardingSlideStepProtocol>: View
     
     /// ProgressBar for onboarding flow
     let progressBar: AnyView
-    let progressBarStyle: ProgressBarViewStyle<Step>
+    let progressBarStyle: ProgressBarViewStyle
     
     /// Theme for colors anf text
     let theme: OnboardingTheme
     private let themeStyle: OnboardingThemeStyle
     
     //MARK: Initializer
-    public init(viewModel: OnboardingViewModel<Step>,
+    public init(viewModel: OnboardingViewModel,
                 nextButtonStyle: ButtonViewStyle,
                 startAppButtonStyle: ButtonViewStyle,
-                progressBarStyle: ProgressBarViewStyle<Step>,
+                progressBarStyle: ProgressBarViewStyle,
                 theme: OnboardingTheme = .default
     ) {
         self.viewModel = viewModel
+        
         self.nextButtonStyle = nextButtonStyle
         self.nextButton = nextButtonStyle.button
         
@@ -47,6 +51,7 @@ public struct SlideOnboardingCustomView<Step: OnboardingSlideStepProtocol>: View
         self.theme = theme
         self.themeStyle = theme.style
     }
+
     
     // MARK: - Body
     public var body: some View {
@@ -54,7 +59,7 @@ public struct SlideOnboardingCustomView<Step: OnboardingSlideStepProtocol>: View
             // MARK: - Header Section
             VStack {
                 /// Main title for the onboarding flow
-                Text(viewModel.currentStep.slide.slideTitle)
+                Text(viewModel.state.currentStep.slideTitle)
                     .font(themeStyle.titleFont)
                     .multilineTextAlignment(.center)
                     .foregroundStyle(themeStyle.titleTextColor ?? .primary)
@@ -67,10 +72,10 @@ public struct SlideOnboardingCustomView<Step: OnboardingSlideStepProtocol>: View
             // MARK: - Image Section
             /// Displays current step's image, fills the frame and clips overflow
             // TODO: - Update image with actual image
-            Image(viewModel.currentStep.slide.imageName)
+            Image(viewModel.state.currentStep.imageName)
                 .resizable()
                 .scaledToFill()
-                .containerRelativeFrame(.vertical, { amount, axis in
+                .containerRelativeFrame(.vertical, { amount, _ in
                     amount / 1.8
                 })
                 .clipped()
@@ -79,11 +84,11 @@ public struct SlideOnboardingCustomView<Step: OnboardingSlideStepProtocol>: View
             // MARK: - Subtitle Section
             VStack {
                 /// First subtitle line, emphasised with headline font
-                Text(viewModel.currentStep.slide.subtitle)
+                Text(viewModel.state.currentStep.subtitle)
                     .font(themeStyle.subtitleFont)
                     .foregroundStyle(themeStyle.subtitleTextColor ?? .primary)
                 /// Second subtitle line, lighter with subHeadline font
-                Text(viewModel.currentStep.slide.subtitleDescription)
+                Text(viewModel.state.currentStep.subtitleDescription)
                     .font(themeStyle.descriptionFont)
                     .foregroundStyle(themeStyle.descriptionTextColor ?? .primary)
                 
@@ -94,11 +99,11 @@ public struct SlideOnboardingCustomView<Step: OnboardingSlideStepProtocol>: View
             
             // MARK: - Buttons
             /// Shows 'Next' and 'Skip' buttons for first 3 steps
-            if !viewModel.currentStep.isLast {
+            if (viewModel.state.showSkipConfirmation) {
                 VStack(spacing: 16) {
                     nextButton
                     Button("Skip") {
-                        viewModel.showSkipConfirmation = true
+                        showAlertSkipBinding = true
                     }
                 }
                 .frame(height: 78)
@@ -108,11 +113,11 @@ public struct SlideOnboardingCustomView<Step: OnboardingSlideStepProtocol>: View
                 startAppButton
             }
         }
-        .animation(.easeInOut, value: viewModel.currentStep)
+        .animation(.easeInOut, value: viewModel.state.currentStep)
         .preferredColorScheme(themeStyle.preferedColorTheme)
         
         // MARK: - Skip Confirmation Alert
-        .alert("Do you really want to skip onboarding?", isPresented: $viewModel.showSkipConfirmation) {
+        .alert("Do you really want to skip onboarding?", isPresented: $showAlertSkipBinding) {
             Button("Skip", role: .destructive) {
                 viewModel.skipOnboarding()
             }
@@ -120,5 +125,8 @@ public struct SlideOnboardingCustomView<Step: OnboardingSlideStepProtocol>: View
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(themeStyle.backgroundColor).ignoresSafeArea(.all)
+        .onChange(of: viewModel.state.currentStep) { newStep in
+            print("SlideOnboardingCustomView received new step: \(newStep)")
+        }
     }
 }

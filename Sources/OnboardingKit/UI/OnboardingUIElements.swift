@@ -38,7 +38,7 @@ public enum ButtonViewStyle {
                     action?()
                 }
                     .frame(height: 78)
-                    .buttonStyle(FTPrimaryButtonStyle())
+                    .buttonStyle(FTSecondaryButtonStyle())
             )
             
         case let .custom(view):
@@ -50,11 +50,11 @@ public enum ButtonViewStyle {
 
 // MARK: Enum for ProgressBar for the onboarding flow
 ///Provides cases based on FTProgressBarView or custom realization
-public enum ProgressBarViewStyle<Step: Hashable & Equatable> {
+public enum ProgressBarViewStyle {
     // MARK: Properties
     /// Styles of ProgressBar
     /// Using implemented styles
-    case `default`(items: [Step], selected: Step, activeColor: Color, intactiveColor: Color)
+    case `default`(items: [OnboardingSlide], selected: OnboardingSlide, activeColor: Color, intactiveColor: Color)
     /// Custom view
     case custom(view: View)
     
