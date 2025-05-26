@@ -11,7 +11,7 @@ import SwiftUI
 /// Includes connected enum for SlideStep needed for architecture
 @available(iOS 17.0, *)
 @Observable
-open class OnboardingViewModel<SlideStep: Hashable & Equatable>{
+open class OnboardingViewModel<SlideStep: OnboardingSlideStepProtocol>{
     // MARK: Properties
     /// The current onboarding step shown
     public var currentStep: SlideStep

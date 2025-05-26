@@ -9,10 +9,10 @@ import SwiftUI
 
 // MARK: Public view for the onboarding flow with customable params
 @available(iOS 17.0, *)
-public struct SlideOnboardingCustomView<VM:OnboardingViewModel<Step>, Step: OnboardingSlideStepProtocol>: View{
+public struct SlideOnboardingCustomView<Step: OnboardingSlideStepProtocol>: View{
     //MARK: Properties
     /// Onboarding ViewModel
-    @State private var viewModel: VM
+    @State private var viewModel: OnboardingViewModel<Step>
     
     /// Buttons for onboarding flow
     let nextButton: AnyView
@@ -29,7 +29,7 @@ public struct SlideOnboardingCustomView<VM:OnboardingViewModel<Step>, Step: Onbo
     private let themeStyle: OnboardingThemeStyle
     
     //MARK: Initializer
-    public init(viewModel: VM,
+    public init(viewModel: OnboardingViewModel<Step>,
                 nextButtonStyle: ButtonViewStyle,
                 startAppButtonStyle: ButtonViewStyle,
                 progressBarStyle: ProgressBarViewStyle<Step>,
