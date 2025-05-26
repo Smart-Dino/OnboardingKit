@@ -50,7 +50,7 @@ public enum ButtonViewStyle {
 
 // MARK: Enum for ProgressBar for the onboarding flow
 ///Provides cases based on FTProgressBarView or custom realization
-public enum ProgressBarViewStyle<Step: OnboardingSlideStepProtocol> {
+public enum ProgressBarViewStyle<Step: Hashable & Equatable> {
     // MARK: Properties
     /// Styles of ProgressBar
     /// Using implemented styles

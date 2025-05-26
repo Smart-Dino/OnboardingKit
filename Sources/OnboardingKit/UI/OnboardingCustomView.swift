@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK: Public view for the onboarding flow with customable params
 @available(iOS 17.0, *)
-public struct SlideOnboardingCustomView<VM:OnboardingViewModelProtocol, Step: OnboardingSlideStepProtocol>: View{
+public struct SlideOnboardingCustomView<VM:OnboardingViewModel<Step>, Step: OnboardingSlideStepProtocol>: View{
     //MARK: Properties
     /// Onboarding ViewModel
     @State private var viewModel: VM
