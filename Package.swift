@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "OnboardingKit",
     platforms: [
-        .iOS(.v15)
+        .iOS(.v17)
     ],
     products: [
         .library(
@@ -15,6 +15,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "OnboardingKit"),
+            name: "OnboardingKit",
+            resources: [.process("Resources")]),
     ]
 )

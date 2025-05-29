@@ -8,7 +8,6 @@
 import SwiftUI
 
 // MARK: Public view for the onboarding flow with customable params
-@available(iOS 17.0, *)
 public struct SlideOnboardingCustomView: View{
     //MARK: Properties
     /// Onboarding ViewModel
@@ -18,38 +17,32 @@ public struct SlideOnboardingCustomView: View{
     @State private var showAlertSkipBinding: Bool = false
     
     /// Buttons for onboarding flow
-    let nextButton: AnyView
-    let nextButtonStyle: ButtonViewStyle
-    let startAppButton: AnyView
-    let startAppButtonStyle: ButtonViewStyle
+    private let nextButton: AnyView
+    private let startAppButton: AnyView
     
     /// ProgressBar for onboarding flow
-    let progressBar: AnyView
-    let progressBarStyle: ProgressBarViewStyle
+    private let progressBar: AnyView
     
     /// Theme for colors anf text
-    let theme: OnboardingTheme
     private let themeStyle: OnboardingThemeStyle
+    
+    /// Localized text
+    private let localizedText = LocalizedStringKey("skip_alert_title")
+    //private let alertText = String(localizedText)
+    
     
     //MARK: Initializer
     public init(viewModel: OnboardingViewModel,
-                nextButtonStyle: ButtonViewStyle,
-                startAppButtonStyle: ButtonViewStyle,
-                progressBarStyle: ProgressBarViewStyle,
-                theme: OnboardingTheme = .default
+                nextButton: CustomButtonView,
+                startAppButton: CustomButtonView,
+                progressBar: CustomProgressBarView,
+                themeStyle: OnboardingThemeStyle
     ) {
         self.viewModel = viewModel
-        
-        self.nextButtonStyle = nextButtonStyle
-        self.nextButton = nextButtonStyle.button
-        
-        self.startAppButtonStyle = startAppButtonStyle
-        self.startAppButton = startAppButtonStyle.button
-        
-        self.progressBarStyle = progressBarStyle
-        self.progressBar = progressBarStyle.progressBar
-        self.theme = theme
-        self.themeStyle = theme.style
+        self.nextButton = nextButton.button
+        self.startAppButton = startAppButton.button
+        self.progressBar = progressBar.progressBar
+        self.themeStyle = themeStyle
     }
 
     
@@ -117,16 +110,13 @@ public struct SlideOnboardingCustomView: View{
         .preferredColorScheme(themeStyle.preferedColorTheme)
         
         // MARK: - Skip Confirmation Alert
-        .alert("Do you really want to skip onboarding?", isPresented: $showAlertSkipBinding) {
-            Button("Skip", role: .destructive) {
+        .alert(String(localized: "skip_alert_title", bundle: .module), isPresented: $showAlertSkipBinding) {
+            Button(String(localized: "skip", bundle: .module), role: .destructive) {
                 viewModel.skipOnboarding()
             }
-            Button("No", role: .cancel) {}
+            Button(String(localized: "cancel", bundle: .module), role: .cancel) {}
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(themeStyle.backgroundColor).ignoresSafeArea(.all)
-        .onChange(of: viewModel.state.currentStep) { newStep in
-            print("SlideOnboardingCustomView received new step: \(newStep)")
-        }
     }
 }

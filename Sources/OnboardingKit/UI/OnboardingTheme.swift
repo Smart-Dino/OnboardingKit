@@ -7,26 +7,6 @@
 
 import SwiftUI
 
-//MARK: Enum for customization on onboarding flow
-///Provides themes cases for customization process on the View
-public enum OnboardingTheme{
-    //MARK: Properties
-    ///Color themes for the View
-    case `default`
-    case custom(OnboardingThemeStyle)
-    
-    /// Actual theme with its properties
-    public var style: OnboardingThemeStyle {
-        switch self {
-        case .default:
-            return OnboardingThemeStyle()
-        case .custom(let style):
-            return style
-        }
-    }
-}
-
-
 //MARK: Structure of customization attributes for onboarding flow
 ///Provides attributes for customization process on the View
 
@@ -59,7 +39,7 @@ public struct OnboardingThemeStyle{
     }
     
     ///Default init
-    init(){
+    public init(){
         self.init(titleFont: .title3.bold(), subtitleFont: .headline, descriptionFont: .subheadline, backgroundColor: nil, titleTextColor: nil, subtitleTextColor: nil, descriptionTextColor: nil, preferedColorTheme: .dark)
     }
 }

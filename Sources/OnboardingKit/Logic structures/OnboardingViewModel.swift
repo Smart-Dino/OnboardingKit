@@ -9,7 +9,6 @@ import SwiftUI
 // MARK: Class for onboarding ViewModel
 /// Class with basic logic for future final Onboarding ViewModel
 /// Includes connected enum for SlideStep needed for architecture
-@available(iOS 17.0, *)
 @Observable
 open class OnboardingViewModel{
     
@@ -25,7 +24,7 @@ open class OnboardingViewModel{
         }
         /// Variable to know if skip bttn is needed to be shown
         public var showSkipConfirmation: Bool {
-            currentStepIndex < allSteps.count - 1 //&& currentStepIndex != 0
+            currentStepIndex < allSteps.count - 1
         }
         
         // MARK: Initializer
@@ -39,15 +38,21 @@ open class OnboardingViewModel{
     
     // MARK: Initializer
     public init(state: State) {
-        precondition(!state.allSteps.isEmpty, "OnboardingViewModel: allSteps must not be empty")
+        assert(!state.allSteps.isEmpty, "OnboardingViewModel: allSteps must not be empty")
         self.state = state
     }
     
     // MARK: Methods
-    // MARK: Override in your VM
-    /// Navigation to the next Step if you are not at the last step
-    open func goToNextStep(){}
+    // MARK: Methods
+    /// Advances to the next onboarding step if not at the last step.
+    public func goToNextStep() {
+        if state.currentStepIndex < state.allSteps.count - 1 {
+            state.currentStepIndex += 1
+        }
+    }
     
-    /// Skip all steps of the onboarding flow to the last one
-    open func skipOnboarding(){}
+    /// Skips directly to the last onboarding step.
+    public func skipOnboarding() {
+        state.currentStepIndex = state.allSteps.count - 1
+    }
 }

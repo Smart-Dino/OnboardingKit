@@ -7,70 +7,40 @@
 
 import SwiftUI
 
-// MARK: Enum for Buttons for the onboarding flow
-///Provides cases based on ButtonStyles or custom realization
-
-@available(iOS 17.0, *)
-public enum ButtonViewStyle {
+// MARK: Struct for Buttons for the onboarding flow
+///Provides initializers based on ButtonStyles or custom realization
+@MainActor
+public struct CustomButtonView {
     // MARK: Properties
-    /// Styles of buttons
-    /// Using implemented styles
-    case primary(title: String, action:(() -> Void)? = nil)
-    case secondary(title: String, action:(() -> Void)? = nil)
-    /// Custom view
-    case custom(view: View)
+    public let button: AnyView
     
-    @MainActor
-    /// Button property
-    var button: AnyView {
-        switch self {
-        case let .primary(title, action):
-            return AnyView(
-                Button(title) {
-                    action?()
-                }
-                    .buttonStyle(FTPrimaryButtonStyle())
-            )
-            
-        case let .secondary(title, action):
-            return AnyView(
-                Button(title) {
-                    action?()
-                }
-                    .frame(height: 78)
-                    .buttonStyle(FTSecondaryButtonStyle())
-            )
-            
-        case let .custom(view):
-            return AnyView(view)
-        }
+    // MARK: Initializer
+    public init(title: String,
+                action:(() -> Void)? = nil,
+                buttonStyle: ButtonStyle){
+        let button = Button(title){action?()}
+            .buttonStyle(buttonStyle)
+        self.button = AnyView(button)
     }
 }
 
 
-// MARK: Enum for ProgressBar for the onboarding flow
-///Provides cases based on FTProgressBarView or custom realization
-public enum ProgressBarViewStyle {
+// MARK: Struct for customisable ProgressBar for the onboarding flow
+///Provides initialization for  customisable ProgressBarView according to the VM
+@MainActor
+public struct CustomProgressBarView {
     // MARK: Properties
-    /// Styles of ProgressBar
-    /// Using implemented styles
-    case `default`(items: [OnboardingSlide], selected: OnboardingSlide, activeColor: Color, intactiveColor: Color)
-    /// Custom view
-    case custom(view: View)
+    public let progressBar: AnyView
     
-    /// ProgressBar property
-    @MainActor
-    var progressBar: AnyView {
-        switch self {
-        case let .default(items, selected, activeColor, intactiveColor):
-            return AnyView(
-                FTProgressBarView(items: items,
-                                  selectedItem: selected,
-                                  activeColor: activeColor,
-                                  inactiveColor: intactiveColor)
-            )
-        case let .custom(view):
-            return AnyView(view)
-        }
+    // MARK: Initializer
+    public init(items: [Int],
+                selectedItem: Binding<Int>,
+                activeColor: Color = .white,
+                inactiveColor: Color = .gray) {
+        self.progressBar = AnyView(
+            ProgressBarView(items: items,
+                            selectedItem: selectedItem,
+                            activeColor: activeColor,
+                            inactiveColor: inactiveColor))
     }
 }
