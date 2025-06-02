@@ -27,7 +27,9 @@ public struct OnboardingThemeStyle{
     
     // MARK: Initialiazer
     ///Custom init
-    public init(titleFont: Font, subtitleFont: Font, descriptionFont: Font, backgroundColor: Color?, titleTextColor: Color?, subtitleTextColor: Color?, descriptionTextColor: Color?, preferedColorTheme: ColorScheme?) {
+    public init(titleFont: Font = .title3.bold(), subtitleFont: Font = .headline, descriptionFont: Font = .subheadline,
+                backgroundColor: Color? = nil, titleTextColor: Color? = nil, subtitleTextColor: Color? = nil,
+                descriptionTextColor: Color? = nil, preferedColorTheme: ColorScheme? = .dark) {
         self.titleFont = titleFont
         self.subtitleFont = subtitleFont
         self.descriptionFont = descriptionFont
@@ -36,10 +38,5 @@ public struct OnboardingThemeStyle{
         self.subtitleTextColor = subtitleTextColor
         self.descriptionTextColor = descriptionTextColor
         self.preferedColorTheme = preferedColorTheme
-    }
-    
-    ///Default init
-    public init(){
-        self.init(titleFont: .title3.bold(), subtitleFont: .headline, descriptionFont: .subheadline, backgroundColor: nil, titleTextColor: nil, subtitleTextColor: nil, descriptionTextColor: nil, preferedColorTheme: .dark)
     }
 }

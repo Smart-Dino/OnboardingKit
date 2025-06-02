@@ -13,8 +13,13 @@ public struct SlideOnboardingCustomView: View{
     /// Onboarding ViewModel
     @State private var viewModel: OnboardingViewModel
     
-    /// Show Skip Button
-    @State private var showAlertSkipBinding: Bool = false
+    ///UI Configurations
+    private let nextButtonConfiguration: ButtonUIConfiguration
+    private let startAppButtonConfiguration: ButtonUIConfiguration
+    private let progressBarConfiguration: ProgressBarUIConfiguration
+    
+    /// Theme for colors and text
+    private let themeStyle: OnboardingThemeStyle
     
     /// Buttons for onboarding flow
     private let nextButton: AnyView
@@ -23,26 +28,31 @@ public struct SlideOnboardingCustomView: View{
     /// ProgressBar for onboarding flow
     private let progressBar: AnyView
     
-    /// Theme for colors anf text
-    private let themeStyle: OnboardingThemeStyle
-    
-    /// Localized text
-    private let localizedText = LocalizedStringKey("skip_alert_title")
-    //private let alertText = String(localizedText)
-    
     
     //MARK: Initializer
     public init(viewModel: OnboardingViewModel,
-                nextButton: CustomButtonView,
-                startAppButton: CustomButtonView,
-                progressBar: CustomProgressBarView,
+                nextButtonConfiguration: ButtonUIConfiguration,
+                startAppButtonConfiguration: ButtonUIConfiguration,
+                progressBarConfiguration: ProgressBarUIConfiguration,
                 themeStyle: OnboardingThemeStyle
     ) {
         self.viewModel = viewModel
-        self.nextButton = nextButton.button
-        self.startAppButton = startAppButton.button
-        self.progressBar = progressBar.progressBar
+        self.nextButtonConfiguration = nextButtonConfiguration
+        self.startAppButtonConfiguration = startAppButtonConfiguration
+        self.progressBarConfiguration = progressBarConfiguration
         self.themeStyle = themeStyle
+        
+        
+        self.nextButton = CustomButtonView(title: nextButtonConfiguration.title,
+                                           action: nextButtonConfiguration.action,
+                                           buttonStyle: nextButtonConfiguration.buttonStyle).button
+        self.startAppButton = CustomButtonView(title: startAppButtonConfiguration.title,
+                                               action: startAppButtonConfiguration.action,
+                                               buttonStyle: startAppButtonConfiguration.buttonStyle).button
+        self.progressBar = CustomProgressBarView(items: progressBarConfiguration.items,
+                                                 selectedItem: progressBarConfiguration.selectedItem,
+                                                 activeColor: progressBarConfiguration.activeColor,
+                                                 inactiveColor: progressBarConfiguration.inactiveColor).progressBar
     }
 
     
@@ -96,7 +106,7 @@ public struct SlideOnboardingCustomView: View{
                 VStack(spacing: 16) {
                     nextButton
                     Button("Skip") {
-                        showAlertSkipBinding = true
+                        viewModel.state.showSkipAlert = true
                     }
                 }
                 .frame(height: 78)
@@ -110,7 +120,7 @@ public struct SlideOnboardingCustomView: View{
         .preferredColorScheme(themeStyle.preferedColorTheme)
         
         // MARK: - Skip Confirmation Alert
-        .alert(String(localized: "skip_alert_title", bundle: .module), isPresented: $showAlertSkipBinding) {
+        .alert(String(localized: "skip_alert_title", bundle: .module), isPresented: $viewModel.state.showSkipAlert) {
             Button(String(localized: "skip", bundle: .module), role: .destructive) {
                 viewModel.skipOnboarding()
             }

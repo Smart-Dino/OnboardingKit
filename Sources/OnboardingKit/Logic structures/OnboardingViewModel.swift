@@ -26,6 +26,8 @@ open class OnboardingViewModel{
         public var showSkipConfirmation: Bool {
             currentStepIndex < allSteps.count - 1
         }
+        /// State for showing skip alert on the view
+        public var showSkipAlert: Bool = false
         
         // MARK: Initializer
         public init(allSteps: [OnboardingSlide], currentStepIndex: Int) {
