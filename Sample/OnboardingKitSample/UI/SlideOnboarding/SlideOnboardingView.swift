@@ -15,20 +15,20 @@ struct SlideOnboardingView: View{
     var body: some View {
         SlideOnboardingCustomView(
             viewModel: viewModel,
-            nextButton: CustomButtonView(title: "Next",
-                                         action: {
-                                             viewModel.goToNextStep()
-                                             print("Current Locale: \(Locale.current.identifier)")
-
-                                         },
-                                         buttonStyle: PrimaryButtonStyle()),
-                   
-            startAppButton: CustomButtonView(title: "Start Focusing",
-                                             action: {},
-                                             buttonStyle: PrimaryButtonStyle()),
-            progressBar: CustomProgressBarView(
-                items: Array(0...viewModel.allSteps.count - 1),
-                selectedItem: $viewModel.state.currentStepIndex),
+            nextButtonConfiguration:
+                ButtonUIConfiguration(title: "Next",
+                                      action: {
+                                          viewModel.goToNextStep()
+                                      },
+                                      buttonStyle: PrimaryButtonStyle()),
+            startAppButtonConfiguration:
+                ButtonUIConfiguration(title: "Start Focusing",
+                                      action: {},
+                                      buttonStyle: PrimaryButtonStyle()),
+            progressBarConfiguration:
+                ProgressBarUIConfiguration(
+                    items: Array(0...viewModel.allSteps.count - 1),
+                    selectedItem: $viewModel.state.currentStepIndex),
             themeStyle: OnboardingThemeStyle()
         )
     }
