@@ -31,19 +31,3 @@ enum SlideOnboardingStep: CaseIterable {
         }
     }
 }
-
-// MARK: - SlideOnboardingViewModel
-
-/// ViewModel managing the state and navigation of onboarding steps.
-@Observable
-final class SlideOnboardingViewModel:OnboardingViewModel {
-    // MARK: Properties
-    /// All steps of onboarding flow
-    let allSteps: [OnboardingSlide] = SlideOnboardingStep.allCases.map{ $0.slide }
-    
-    // MARK: Initializer
-    override init(state: State = State(allSteps: SlideOnboardingStep.allCases.map{ $0.slide },
-                                       currentStepIndex: 0)){
-        super.init(state: state)
-    }
-}
