@@ -10,36 +10,36 @@ import SwiftUI
 /// Class with basic logic for future final Onboarding ViewModel
 /// Includes connected enum for SlideStep needed for architecture
 @Observable
-open class OnboardingViewModel{
+class OnboardingViewModel{
     
     // MARK: Properties
     /// Special structure for Onboarding View
-    public struct State{
+    struct State{
         // MARK: Properties
-        public let allSteps: [OnboardingSlide]
+        let allSteps: [OnboardingSlide]
         /// The current onboarding step shown in the view.
-        public var currentStepIndex: Int = 0
-        public var currentStep: OnboardingSlide {
+        var currentStepIndex: Int = 0
+        var currentStep: OnboardingSlide {
             allSteps[currentStepIndex]
         }
         /// Variable to know if skip bttn is needed to be shown
-        public var showSkipConfirmation: Bool {
+        var showSkipConfirmation: Bool {
             currentStepIndex < allSteps.count - 1
         }
         /// State for showing skip alert on the view
-        public var showSkipAlert: Bool = false
+        var showSkipAlert: Bool = false
         
         // MARK: Initializer
-        public init(allSteps: [OnboardingSlide], currentStepIndex: Int) {
+        init(allSteps: [OnboardingSlide], currentStepIndex: Int) {
             self.allSteps = allSteps
             self.currentStepIndex = currentStepIndex
         }
     }
     /// Property for the current statr on the View
-    public var state: State
+    var state: State
     
     // MARK: Initializer
-    public init(state: State) {
+    init(state: State) {
         assert(!state.allSteps.isEmpty, "OnboardingViewModel: allSteps must not be empty")
         self.state = state
     }
@@ -47,14 +47,14 @@ open class OnboardingViewModel{
     // MARK: Methods
     // MARK: Methods
     /// Advances to the next onboarding step if not at the last step.
-    public func goToNextStep() {
+    func goToNextStep() {
         if state.currentStepIndex < state.allSteps.count - 1 {
             state.currentStepIndex += 1
         }
     }
     
     /// Skips directly to the last onboarding step.
-    public func skipOnboarding() {
+    func skipOnboarding() {
         state.currentStepIndex = state.allSteps.count - 1
     }
 }

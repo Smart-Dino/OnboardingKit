@@ -16,8 +16,8 @@ public struct ButtonUIConfiguration{
     
     //MARK: Initializer
     public init(title: String,
-                action:(() -> Void)? = nil,
-                buttonStyle: ButtonStyle)
+                buttonStyle: ButtonStyle,
+                _ action:(() -> Void)? = nil)
     {
         self.title = title
         self.action = action
@@ -30,19 +30,13 @@ public struct ButtonUIConfiguration{
 //MARK: Struct to ProgressBar configuration
 public struct ProgressBarUIConfiguration{
     //MARK: Properties
-    ///ProgressBar properties
-    public var items: [Int]
-    public var selectedItem: Binding<Int>
+    ///ProgressBar Color properties
     public var activeColor: Color
     public var inactiveColor: Color
     
     //MARK: Initializer
-    public init(items: [Int],
-                selectedItem: Binding<Int>,
-                activeColor: Color = .white,
+    public init(activeColor: Color = .white,
                 inactiveColor: Color = .gray){
-        self.items = items
-        self.selectedItem = selectedItem
         self.activeColor = activeColor
         self.inactiveColor = inactiveColor
     }

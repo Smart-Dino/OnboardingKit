@@ -8,7 +8,7 @@
 import SwiftUI
 
 // MARK: Public view for the onboarding flow with customable params
-public struct SlideOnboardingCustomView: View{
+public struct OnboardingCustomView: View{
     //MARK: Properties
     /// Onboarding ViewModel
     @State private var viewModel: OnboardingViewModel
@@ -30,7 +30,7 @@ public struct SlideOnboardingCustomView: View{
     
     
     //MARK: Initializer
-    public init(viewModel: OnboardingViewModel,
+    init(viewModel: OnboardingViewModel,
                 nextButtonConfiguration: ButtonUIConfiguration,
                 startAppButtonConfiguration: ButtonUIConfiguration,
                 progressBarConfiguration: ProgressBarUIConfiguration,
@@ -49,8 +49,9 @@ public struct SlideOnboardingCustomView: View{
         self.startAppButton = CustomButtonView(title: startAppButtonConfiguration.title,
                                                action: startAppButtonConfiguration.action,
                                                buttonStyle: startAppButtonConfiguration.buttonStyle).button
-        self.progressBar = CustomProgressBarView(items: progressBarConfiguration.items,
-                                                 selectedItem: progressBarConfiguration.selectedItem,
+        self.progressBar = CustomProgressBarView(items: Array(0...viewModel.state.allSteps.count - 1),
+                                                 selectedItem: Binding(get: {viewModel.state.currentStepIndex},
+                                                                       set: { _ in}),
                                                  activeColor: progressBarConfiguration.activeColor,
                                                  inactiveColor: progressBarConfiguration.inactiveColor).progressBar
     }
@@ -105,7 +106,7 @@ public struct SlideOnboardingCustomView: View{
             if (viewModel.state.showSkipConfirmation) {
                 VStack(spacing: 16) {
                     nextButton
-                    Button("Skip") {
+                    Button(String(localized: "skip", bundle: .module)) {
                         viewModel.state.showSkipAlert = true
                     }
                 }
