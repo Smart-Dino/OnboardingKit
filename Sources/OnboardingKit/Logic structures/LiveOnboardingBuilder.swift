@@ -14,11 +14,13 @@ private protocol OnboardingBuilderProtocol {
     func setStartAppButtonConfiguration(_ startAppButtonConfiguration: ButtonUIConfiguration) -> Self
     func setProgressBarConfiguration(_ progressBarConfiguration: ProgressBarUIConfiguration) -> Self
     func setThemeStyle(_ themeStyle: OnboardingThemeStyle) -> Self
+    @MainActor
+    func buildView() -> AnyView
 }
 
 
 //MARK: Builder for specific implementation of the future View
-public class OnboardingBuilder: OnboardingBuilderProtocol{
+public class LiveOnboardingBuilder: OnboardingBuilderProtocol{
     
     //MARK: Properties
     /// Onboarding ViewModel
@@ -68,7 +70,7 @@ public class OnboardingBuilder: OnboardingBuilderProtocol{
     }
     
     @MainActor
-    public func buildView() -> some View {
+    public func buildView() -> AnyView {
         guard let viewModel = self.viewModel,
               let nextButtonConfiguration = self.nextButtonConfiguration,
               let startAppButtonConfiguration = startAppButtonConfiguration,
@@ -78,12 +80,14 @@ public class OnboardingBuilder: OnboardingBuilderProtocol{
             fatalError("Missing required configurations")
         }
         
-        return OnboardingCustomViewContainer(
-            viewModel: viewModel,
-            nextButtonConfiguration: nextButtonConfiguration,
-            startAppButtonConfiguration: startAppButtonConfiguration,
-            progressBarConfiguration: progressBarConfiguration,
-            themeStyle: themeStyle
+        return AnyView(
+            OnboardingCustomViewContainer(
+                viewModel: viewModel,
+                nextButtonConfiguration: nextButtonConfiguration,
+                startAppButtonConfiguration: startAppButtonConfiguration,
+                progressBarConfiguration: progressBarConfiguration,
+                themeStyle: themeStyle
+            )
         )
     }
 }
@@ -93,12 +97,12 @@ public class OnboardingBuilder: OnboardingBuilderProtocol{
 ///Helps with react programming
 private struct OnboardingCustomViewContainer: View {
     @State private var viewModel: OnboardingViewModel
-
+    
     private let nextButtonConfiguration: ButtonUIConfiguration
     private let startAppButtonConfiguration: ButtonUIConfiguration
     private let progressBarConfiguration: ProgressBarUIConfiguration
     private let themeStyle: OnboardingThemeStyle
-
+    
     init(
         viewModel: OnboardingViewModel,
         nextButtonConfiguration: ButtonUIConfiguration,
@@ -112,7 +116,7 @@ private struct OnboardingCustomViewContainer: View {
         self.progressBarConfiguration = progressBarConfiguration
         self.themeStyle = themeStyle
     }
-
+    
     var body: some View {
         OnboardingCustomView(
             viewModel: viewModel,
