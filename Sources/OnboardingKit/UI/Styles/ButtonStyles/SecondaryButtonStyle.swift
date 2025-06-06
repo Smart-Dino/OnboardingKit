@@ -26,6 +26,8 @@ public struct SecondaryButtonStyle: ButtonStyle {
     public let backgroundMaterial: Material
     /// Vertical padding
     public let verticalPadding: CGFloat
+    /// Horizontal padding
+    public let horizontalPadding: CGFloat
     /// Pressed state opacity
     public let pressedOpacity: Double
     
@@ -35,10 +37,12 @@ public struct SecondaryButtonStyle: ButtonStyle {
     public init(
         backgroundMaterial: Material = .regularMaterial,
         verticalPadding: CGFloat = 7,
+        horizontalPadding: CGFloat = 0,
         pressedOpacity: Double = 0.8
     ) {
         self.backgroundMaterial = backgroundMaterial
         self.verticalPadding = verticalPadding
+        self.horizontalPadding = horizontalPadding
         self.pressedOpacity = pressedOpacity
     }
     
@@ -50,6 +54,7 @@ public struct SecondaryButtonStyle: ButtonStyle {
             .background(backgroundMaterial)
             .clipShape(Capsule())
             .opacity(configuration.isPressed ? pressedOpacity : 1)
+            .padding(.horizontal, horizontalPadding)
     }
     
 }

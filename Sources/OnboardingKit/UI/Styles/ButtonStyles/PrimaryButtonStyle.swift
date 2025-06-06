@@ -29,6 +29,8 @@ public struct PrimaryButtonStyle: ButtonStyle {
     public let foregroundColor: Color
     /// Vertical padding
     public let verticalPadding: CGFloat
+    /// Horizontal padding
+    public let horizontalPadding: CGFloat
     /// Corner shape
     public let cornerRadius: CGFloat
     /// Pressed state opacity
@@ -41,12 +43,14 @@ public struct PrimaryButtonStyle: ButtonStyle {
         backgroundColor: Color = .blue,
         foregroundColor: Color = .white,
         verticalPadding: CGFloat = 7,
+        horizontalPadding: CGFloat = 0,
         cornerRadius: CGFloat = 22,
         pressedOpacity: Double = 0.8
     ) {
         self.backgroundColor = backgroundColor
         self.foregroundColor = foregroundColor
         self.verticalPadding = verticalPadding
+        self.horizontalPadding = horizontalPadding
         self.cornerRadius = cornerRadius
         self.pressedOpacity = pressedOpacity
     }
@@ -61,5 +65,6 @@ public struct PrimaryButtonStyle: ButtonStyle {
             .foregroundColor(foregroundColor)
             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
             .opacity(configuration.isPressed ? pressedOpacity : 1)
+            .padding(.horizontal, horizontalPadding)
     }
 }
