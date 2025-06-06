@@ -10,7 +10,7 @@ import OnboardingKit
 
 // MARK: - SlideOnboardingView
 struct SlideOnboardingView: View{
-    var builder = OnboardingBuilder()
+    var builder = LiveOnboardingBuilder()
     var body: some View {
         builder
             .setViewModel(SlideOnboardingStep.allCases.map{ $0.slide})
