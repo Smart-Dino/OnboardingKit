@@ -24,12 +24,15 @@ public struct OnboardingThemeStyle{
     public let descriptionTextColor: Color?
     public let preferedColorTheme: ColorScheme?
     
+    ///Background view property
+    public let backgroundView: AnyView?
+    
     
     // MARK: Initialiazer
     ///Custom init
     public init(titleFont: Font = .title3.bold(), subtitleFont: Font = .headline, descriptionFont: Font = .subheadline,
                 backgroundColor: Color? = nil, titleTextColor: Color? = nil, subtitleTextColor: Color? = nil,
-                descriptionTextColor: Color? = nil, preferedColorTheme: ColorScheme? = .dark) {
+                descriptionTextColor: Color? = nil, preferedColorTheme: ColorScheme? = .dark, backgroundView: AnyView? = nil) {
         self.titleFont = titleFont
         self.subtitleFont = subtitleFont
         self.descriptionFont = descriptionFont
@@ -38,5 +41,6 @@ public struct OnboardingThemeStyle{
         self.subtitleTextColor = subtitleTextColor
         self.descriptionTextColor = descriptionTextColor
         self.preferedColorTheme = preferedColorTheme
+        self.backgroundView = backgroundView
     }
 }
