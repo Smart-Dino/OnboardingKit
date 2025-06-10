@@ -69,7 +69,7 @@ public struct OnboardingCustomView: View{
                     /// Main title for the onboarding flow
                     Text(viewModel.state.currentStep.slideTitle)
                         .font(themeStyle.titleFont)
-                        .multilineTextAlignment(themeStyle.textAlignment)
+                        .multilineTextAlignment(.center)
                         .foregroundStyle(themeStyle.titleTextColor ?? .primary)
                     
                     /// Progress bar UI from package
@@ -89,19 +89,19 @@ public struct OnboardingCustomView: View{
                     .padding(.top, 20)
                 
                 // MARK: - Subtitle Section
-                VStack {
+                VStack(alignment: themeStyle.textHorizontalAlignment) {
                     /// First subtitle line, emphasised with headline font
                     Text(viewModel.state.currentStep.subtitle)
                         .font(themeStyle.subtitleFont)
                         .foregroundStyle(themeStyle.subtitleTextColor ?? .primary)
+                    
                     /// Second subtitle line, lighter with subHeadline font
                     Text(viewModel.state.currentStep.subtitleDescription)
                         .font(themeStyle.descriptionFont)
                         .foregroundStyle(themeStyle.descriptionTextColor ?? .primary)
-                    
                 }
+                .multilineTextAlignment(themeStyle.secondaryTextAlignment)
                 .frame(height: 152)
-                .multilineTextAlignment(themeStyle.textAlignment)
                 .padding(themeStyle.textPadding)
                 
                 
