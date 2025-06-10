@@ -69,7 +69,7 @@ public struct OnboardingCustomView: View{
                     /// Main title for the onboarding flow
                     Text(viewModel.state.currentStep.slideTitle)
                         .font(themeStyle.titleFont)
-                        .multilineTextAlignment(.center)
+                        .multilineTextAlignment(themeStyle.textAlignment)
                         .foregroundStyle(themeStyle.titleTextColor ?? .primary)
                     
                     /// Progress bar UI from package

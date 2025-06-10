@@ -16,7 +16,8 @@ public struct OnboardingThemeStyle{
     public let titleFont: Font
     public let subtitleFont: Font
     public let descriptionFont: Font
-    public let textAlignment: TextAlignment
+    public let subtitleAlignment: TextAlignment
+    public let descriptionAlignment: TextAlignment
     public let textPadding: CGFloat
     
     ///Color-based properties
@@ -36,7 +37,8 @@ public struct OnboardingThemeStyle{
     public init(titleFont: Font = .title3.bold(),
                 subtitleFont: Font = .headline,
                 descriptionFont: Font = .subheadline,
-                textAlignment: TextAlignment = .center,
+                subtitleAlignment: TextAlignment = .center,
+                descriptionAlignment: TextAlignment = .center,
                 textPadding: CGFloat = 8,
                 backgroundColor: Color? = nil,
                 titleTextColor: Color? = nil,
@@ -48,7 +50,8 @@ public struct OnboardingThemeStyle{
         self.titleFont = titleFont
         self.subtitleFont = subtitleFont
         self.descriptionFont = descriptionFont
-        self.textAlignment = textAlignment
+        self.subtitleAlignment = subtitleAlignment
+        self.descriptionAlignment = descriptionAlignment
         self.textPadding = textPadding
         
         self.backgroundColor = backgroundColor
