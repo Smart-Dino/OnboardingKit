@@ -16,11 +16,14 @@ public struct OnboardingThemeStyle{
     public let titleFont: Font
     public let subtitleFont: Font
     public let descriptionFont: Font
+    public let textAlignment: TextAlignment
+    public let textPadding: CGFloat
     
     ///Color-based properties
     public let backgroundColor: Color?
     public let titleTextColor: Color?
     public let subtitleTextColor: Color?
+    public let skipButtonTextColor: Color?
     public let descriptionTextColor: Color?
     public let preferedColorTheme: ColorScheme?
     
@@ -30,15 +33,28 @@ public struct OnboardingThemeStyle{
     
     // MARK: Initialiazer
     ///Custom init
-    public init(titleFont: Font = .title3.bold(), subtitleFont: Font = .headline, descriptionFont: Font = .subheadline,
-                backgroundColor: Color? = nil, titleTextColor: Color? = nil, subtitleTextColor: Color? = nil,
-                descriptionTextColor: Color? = nil, preferedColorTheme: ColorScheme? = .dark, backgroundView: AnyView? = nil) {
+    public init(titleFont: Font = .title3.bold(),
+                subtitleFont: Font = .headline,
+                descriptionFont: Font = .subheadline,
+                textAlignment: TextAlignment = .center,
+                textPadding: CGFloat = 8,
+                backgroundColor: Color? = nil,
+                titleTextColor: Color? = nil,
+                subtitleTextColor: Color? = nil,
+                skipButtonTextColor: Color? = nil,
+                descriptionTextColor: Color? = nil,
+                preferedColorTheme: ColorScheme? = .dark,
+                backgroundView: AnyView? = nil) {
         self.titleFont = titleFont
         self.subtitleFont = subtitleFont
         self.descriptionFont = descriptionFont
+        self.textAlignment = textAlignment
+        self.textPadding = textPadding
+        
         self.backgroundColor = backgroundColor
         self.titleTextColor = titleTextColor
         self.subtitleTextColor = subtitleTextColor
+        self.skipButtonTextColor = skipButtonTextColor
         self.descriptionTextColor = descriptionTextColor
         self.preferedColorTheme = preferedColorTheme
         self.backgroundView = backgroundView

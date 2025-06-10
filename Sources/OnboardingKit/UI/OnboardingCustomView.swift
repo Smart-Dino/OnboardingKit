@@ -101,7 +101,8 @@ public struct OnboardingCustomView: View{
                     
                 }
                 .frame(height: 152)
-                .multilineTextAlignment(.center)
+                .multilineTextAlignment(themeStyle.textAlignment)
+                .padding(themeStyle.textPadding)
                 
                 
                 // MARK: - Buttons
@@ -112,6 +113,8 @@ public struct OnboardingCustomView: View{
                         Button(String(localized: "skip", bundle: .module)) {
                             viewModel.state.showSkipAlert = true
                         }
+                        .foregroundStyle(themeStyle.skipButtonTextColor ?? .secondary)
+
                     }
                     .frame(height: 78)
                     
