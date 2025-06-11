@@ -19,8 +19,12 @@ struct SlideOnboardingView: View{
             .setStartAppButtonConfiguration(ButtonUIConfiguration(title: "Start Focusing",
                                                                   buttonStyle: PrimaryButtonStyle(),
                                                                   {print("Start Focusing")}))
+            .setSizeUIConfiguration(SizeUIConfiguration(
+                upperSpacerHeight: 40,
+                lowerSpacerHeight: 40
+            ))
             .setProgressBarConfiguration(ProgressBarUIConfiguration())
-            .setThemeStyle(OnboardingThemeStyle())
+            .setThemeStyle(OnboardingThemeStyle(skipButtonTextColor: .blue))
             .buildView()
     }
 }
