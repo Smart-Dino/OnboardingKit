@@ -56,6 +56,7 @@ Configure UI:
                                                           buttonStyle: PrimaryButtonStyle(),
                                                           {print("Start")}))
     .setProgressBarConfiguration(ProgressBarUIConfiguration())
+    .setSizeUIConfiguration(SizeUIConfiguration())
     .setThemeStyle(OnboardingThemeStyle())
 ```
 

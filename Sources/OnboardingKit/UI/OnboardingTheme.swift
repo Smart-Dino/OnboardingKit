@@ -31,9 +31,6 @@ public struct OnboardingThemeStyle{
     ///Background view property
     public let backgroundView: AnyView?
     
-    ///Paddings
-    public let secondaryTextPadding: CGFloat
-    
     // MARK: Initialiazer
     ///Custom init
     public init(titleFont: Font = .title3.bold(),
@@ -47,15 +44,13 @@ public struct OnboardingThemeStyle{
                 skipButtonTextColor: Color? = nil,
                 descriptionTextColor: Color? = nil,
                 preferedColorTheme: ColorScheme? = .dark,
-                backgroundView: AnyView? = nil,
-                secondaryTextPadding: CGFloat = 8
+                backgroundView: AnyView? = nil
     ) {
         self.titleFont = titleFont
         self.subtitleFont = subtitleFont
         self.descriptionFont = descriptionFont
         self.secondaryTextAlignment = secondaryTextAlignment
         self.textHorizontalAlignment = textHorizontalAlignment
-        self.secondaryTextPadding = secondaryTextPadding
         
         self.backgroundColor = backgroundColor
         self.titleTextColor = titleTextColor

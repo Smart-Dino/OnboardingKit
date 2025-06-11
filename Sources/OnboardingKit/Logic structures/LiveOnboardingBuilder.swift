@@ -30,6 +30,7 @@ public class LiveOnboardingBuilder: OnboardingBuilderProtocol{
     private var nextButtonConfiguration: ButtonUIConfiguration?
     private var startAppButtonConfiguration: ButtonUIConfiguration?
     private var progressBarConfiguration: ProgressBarUIConfiguration?
+    private var sizeUIConfiguration: SizeUIConfiguration?
     
     /// Theme for colors and text
     private var themeStyle: OnboardingThemeStyle?
@@ -64,6 +65,11 @@ public class LiveOnboardingBuilder: OnboardingBuilderProtocol{
         return self
     }
     
+    public func setSizeUIConfiguration(_ sizeUIConfiguration: SizeUIConfiguration) -> Self {
+        self.sizeUIConfiguration = sizeUIConfiguration
+        return self
+    }
+    
     public func setThemeStyle(_ themeStyle: OnboardingThemeStyle) -> Self {
         self.themeStyle = themeStyle
         return self
@@ -75,6 +81,7 @@ public class LiveOnboardingBuilder: OnboardingBuilderProtocol{
               let nextButtonConfiguration = self.nextButtonConfiguration,
               let startAppButtonConfiguration = startAppButtonConfiguration,
               let progressBarConfiguration = progressBarConfiguration,
+              let sizeUIConfiguration = sizeUIConfiguration,
               let themeStyle = themeStyle
         else {
             fatalError("Missing required configurations")
@@ -86,6 +93,7 @@ public class LiveOnboardingBuilder: OnboardingBuilderProtocol{
                 nextButtonConfiguration: nextButtonConfiguration,
                 startAppButtonConfiguration: startAppButtonConfiguration,
                 progressBarConfiguration: progressBarConfiguration,
+                sizeUIConfiguration: sizeUIConfiguration,
                 themeStyle: themeStyle
             )
         )
@@ -101,6 +109,7 @@ private struct OnboardingCustomViewContainer: View {
     private let nextButtonConfiguration: ButtonUIConfiguration
     private let startAppButtonConfiguration: ButtonUIConfiguration
     private let progressBarConfiguration: ProgressBarUIConfiguration
+    private let sizeUIConfiguration: SizeUIConfiguration
     private let themeStyle: OnboardingThemeStyle
     
     init(
@@ -108,12 +117,14 @@ private struct OnboardingCustomViewContainer: View {
         nextButtonConfiguration: ButtonUIConfiguration,
         startAppButtonConfiguration: ButtonUIConfiguration,
         progressBarConfiguration: ProgressBarUIConfiguration,
+        sizeUIConfiguration: SizeUIConfiguration,
         themeStyle: OnboardingThemeStyle
     ) {
         self._viewModel = State(initialValue: viewModel)
         self.nextButtonConfiguration = nextButtonConfiguration
         self.startAppButtonConfiguration = startAppButtonConfiguration
         self.progressBarConfiguration = progressBarConfiguration
+        self.sizeUIConfiguration = sizeUIConfiguration
         self.themeStyle = themeStyle
     }
     
@@ -123,6 +134,7 @@ private struct OnboardingCustomViewContainer: View {
             nextButtonConfiguration: nextButtonConfiguration,
             startAppButtonConfiguration: startAppButtonConfiguration,
             progressBarConfiguration: progressBarConfiguration,
+            sizeUIConfiguration: sizeUIConfiguration,
             themeStyle: themeStyle
         )
     }
