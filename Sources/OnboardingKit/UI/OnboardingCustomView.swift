@@ -62,83 +62,92 @@ public struct OnboardingCustomView: View{
     
     // MARK: - Body
     public var body: some View {
-        ZStack {
-            // MARK: - Background
-            themeStyle.backgroundColor
-                .ignoresSafeArea()
-            themeStyle.backgroundView
-                .ignoresSafeArea()
-            
-            VStack {
-                // MARK: - Header Section
+        GeometryReader{ geometry in
+            ZStack {
+                // MARK: - Background
+                themeStyle.backgroundColor
+                    .ignoresSafeArea()
+                themeStyle.backgroundView
+                    .ignoresSafeArea()
+                
                 VStack {
-                    /// Main title for the onboarding flow
-                    Text(viewModel.state.currentStep.slideTitle)
-                        .font(themeStyle.titleFont)
-                        .multilineTextAlignment(.center)
-                        .foregroundStyle(themeStyle.titleTextColor ?? .primary)
-                    
-                    /// Progress bar UI from package
-                    progressBar
-                        .padding(sizeUIConfiguration.progressBarPadding)
-                }
-                .padding(.bottom, sizeUIConfiguration.headerBottomPadding)
-                
-                // MARK: - Image Section
-                /// Displays current step's image, fills the frame and clips overflow
-                // TODO: - Update image with actual image
-                Image(viewModel.state.currentStep.imageName)
-                .resizable()
-                .scaledToFill()
-                .frame(width: sizeUIConfiguration.imageWidth, height: sizeUIConfiguration.imageHeight)
-                    .clipped()
-                    .padding(.top, sizeUIConfiguration.imageTopPadding)
-                
-                
-                // MARK: - Subtitle Section
-                VStack(alignment: themeStyle.textHorizontalAlignment) {
-                    /// First subtitle line, emphasised with headline font
-                    Text(viewModel.state.currentStep.subtitle)
-                        .font(themeStyle.subtitleFont)
-                        .foregroundStyle(themeStyle.subtitleTextColor ?? .primary)
-                    
-                    /// Second subtitle line, lighter with subHeadline font
-                    Text(viewModel.state.currentStep.subtitleDescription)
-                        .font(themeStyle.descriptionFont)
-                        .foregroundStyle(themeStyle.descriptionTextColor ?? .primary)
-                }
-                .multilineTextAlignment(themeStyle.secondaryTextAlignment)
-                .frame(height: sizeUIConfiguration.textContainerHeight)
-                .padding(.horizontal)
-                .padding(.bottom, sizeUIConfiguration.textBottomPadding)
-                
-                // MARK: - Buttons
-                /// Shows 'Next' and 'Skip' buttons for first 3 steps
-                
-                VStack(spacing: 16) {
-                    if (viewModel.state.showSkipConfirmation) {
-                        nextButton
-                        Button(String(localized: "skip", bundle: .module)) {
-                            viewModel.state.showSkipAlert = true
-                        }
-                        .foregroundStyle(themeStyle.skipButtonTextColor ?? .secondary)
-                    } else {
-                        /// Shows 'Start Focusing' button on the last step
-                        startAppButton
+                    // MARK: - Header Section
+                    VStack {
+                        /// Main title for the onboarding flow
+                        Text(viewModel.state.currentStep.slideTitle)
+                            .font(themeStyle.titleFont)
+                            .multilineTextAlignment(.center)
+                            .foregroundStyle(themeStyle.titleTextColor ?? .primary)
+                        
+                        /// Progress bar UI from package
+                        progressBar
+                            .padding(.horizontal, sizeUIConfiguration.progressBarPadding)
                     }
+                   
+                    // MARK: - Image Section
+                    /// Displays current step's image, fills the frame and clips overflow
+                    // TODO: - Update image with actual image
+                    Image(viewModel.state.currentStep.imageName)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width:geometry.size.width, height: geometry.size.height*sizeUIConfiguration.imageHeight)
+                        .clipped()
+                        .padding(.top, sizeUIConfiguration.imageTopPadding)
+                    
+                    /// Spacer ability
+                    Spacer()
+                        .frame(height: geometry.size.height*sizeUIConfiguration.upperSpacerHeight)
+                    
+                    // MARK: - Subtitle Section
+                    VStack(alignment: themeStyle.textHorizontalAlignment) {
+                        /// First subtitle line, emphasised with headline font
+                        Text(viewModel.state.currentStep.subtitle)
+                            .font(themeStyle.subtitleFont)
+                            .foregroundStyle(themeStyle.subtitleTextColor ?? .primary)
+                        
+                        /// Second subtitle line, lighter with subHeadline font
+                        Text(viewModel.state.currentStep.subtitleDescription)
+                            .font(themeStyle.descriptionFont)
+                            .foregroundStyle(themeStyle.descriptionTextColor ?? .primary)
+                    }
+                    .padding(.vertical, sizeUIConfiguration.textVerticalPadding)
+                    .padding(.horizontal, sizeUIConfiguration.textHorizontalPadding)
+                    .multilineTextAlignment(themeStyle.secondaryTextAlignment)
+                    .frame(height: geometry.size.height * sizeUIConfiguration.textContainerHeight)
+                    
+                    /// Spacer ability
+                    Spacer()
+                        .frame(height: geometry.size.height*sizeUIConfiguration.lowerSpacerHeight)
+                    
+                    
+                    // MARK: - Buttons
+                    /// Shows 'Next' and 'Skip' buttons for first 3 steps
+                    
+                    VStack(spacing: 16) {
+                        if (viewModel.state.showSkipConfirmation) {
+                            nextButton
+                            Button(String(localized: "skip", bundle: .module)) {
+                                viewModel.state.showSkipAlert = true
+                            }
+                            .foregroundStyle(themeStyle.skipButtonTextColor ?? .secondary)
+                        } else {
+                            /// Shows 'Start Focusing' button on the last step
+                            startAppButton
+                        }
+                    }
+                    .frame(height: geometry.size.height * sizeUIConfiguration.buttonContainerHeight)
+                    .padding(.horizontal)
                 }
-                .frame(height: sizeUIConfiguration.buttonContainerHeight)
-                .padding(.horizontal)
-            }
-            .animation(.easeInOut, value: viewModel.state.currentStep)
-            .preferredColorScheme(themeStyle.preferedColorTheme)
-            
-            // MARK: - Skip Confirmation Alert
-            .alert(String(localized: "skip_alert_title", bundle: .module), isPresented: $viewModel.state.showSkipAlert) {
-                Button(String(localized: "skip", bundle: .module), role: .destructive) {
-                    viewModel.skipOnboarding()
+                .animation(.easeInOut, value: viewModel.state.currentStep)
+                .preferredColorScheme(themeStyle.preferedColorTheme)
+                
+                // MARK: - Skip Confirmation Alert
+                .alert(String(localized: "skip_alert_title", bundle: .module), isPresented: $viewModel.state.showSkipAlert) {
+                    Button(String(localized: "skip", bundle: .module), role: .destructive) {
+                        viewModel.skipOnboarding()
+                    }
+                    Button(String(localized: "cancel", bundle: .module), role: .cancel) {}
                 }
-                Button(String(localized: "cancel", bundle: .module), role: .cancel) {}
             }
         }
     }
