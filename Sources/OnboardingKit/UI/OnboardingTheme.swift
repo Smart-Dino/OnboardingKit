@@ -18,7 +18,7 @@ public struct OnboardingThemeStyle{
     public let descriptionFont: Font
     public let secondaryTextAlignment: TextAlignment
     public let textHorizontalAlignment: HorizontalAlignment
-    public let textPadding: CGFloat
+    
     
     ///Color-based properties
     public let backgroundColor: Color?
@@ -31,6 +31,8 @@ public struct OnboardingThemeStyle{
     ///Background view property
     public let backgroundView: AnyView?
     
+    ///Paddings
+    public let secondaryTextPadding: CGFloat
     
     // MARK: Initialiazer
     ///Custom init
@@ -39,20 +41,21 @@ public struct OnboardingThemeStyle{
                 descriptionFont: Font = .subheadline,
                 secondaryTextAlignment: TextAlignment = .center,
                 textHorizontalAlignment: HorizontalAlignment = .center,
-                textPadding: CGFloat = 8,
                 backgroundColor: Color? = nil,
                 titleTextColor: Color? = nil,
                 subtitleTextColor: Color? = nil,
                 skipButtonTextColor: Color? = nil,
                 descriptionTextColor: Color? = nil,
                 preferedColorTheme: ColorScheme? = .dark,
-                backgroundView: AnyView? = nil) {
+                backgroundView: AnyView? = nil,
+                secondaryTextPadding: CGFloat = 8
+    ) {
         self.titleFont = titleFont
         self.subtitleFont = subtitleFont
         self.descriptionFont = descriptionFont
         self.secondaryTextAlignment = secondaryTextAlignment
         self.textHorizontalAlignment = textHorizontalAlignment
-        self.textPadding = textPadding
+        self.secondaryTextPadding = secondaryTextPadding
         
         self.backgroundColor = backgroundColor
         self.titleTextColor = titleTextColor

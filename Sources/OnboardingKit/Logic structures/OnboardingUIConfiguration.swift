@@ -33,12 +33,15 @@ public struct ProgressBarUIConfiguration{
     ///ProgressBar Color properties
     public var activeColor: Color
     public var inactiveColor: Color
+    public var progressBarPadding: CGFloat
     
     //MARK: Initializer
     public init(activeColor: Color = .white,
-                inactiveColor: Color = .gray){
+                inactiveColor: Color = .gray,
+                progressBarPadding: CGFloat = 8){
         self.activeColor = activeColor
         self.inactiveColor = inactiveColor
+        self.progressBarPadding = progressBarPadding
     }
     
 }
