@@ -10,7 +10,7 @@ import OnboardingKit
 
 // MARK: - SlideOnboardingView
 struct SlideOnboardingView: View{
-    var builder = OnboardingBuilder()
+    var builder = LiveOnboardingBuilder()
     var body: some View {
         builder
             .setViewModel(SlideOnboardingStep.allCases.map{ $0.slide})
@@ -19,8 +19,12 @@ struct SlideOnboardingView: View{
             .setStartAppButtonConfiguration(ButtonUIConfiguration(title: "Start Focusing",
                                                                   buttonStyle: PrimaryButtonStyle(),
                                                                   {print("Start Focusing")}))
+            .setSizeUIConfiguration(SizeUIConfiguration(
+                upperSpacerHeight: 40,
+                lowerSpacerHeight: 40
+            ))
             .setProgressBarConfiguration(ProgressBarUIConfiguration())
-            .setThemeStyle(OnboardingThemeStyle())
+            .setThemeStyle(OnboardingThemeStyle(skipButtonTextColor: .blue))
             .buildView()
     }
 }
