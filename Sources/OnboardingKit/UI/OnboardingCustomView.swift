@@ -78,10 +78,11 @@ public struct OnboardingCustomView: View{
                             .font(themeStyle.titleFont)
                             .multilineTextAlignment(.center)
                             .foregroundStyle(themeStyle.titleTextColor ?? .primary)
+                            .padding(.bottom, sizeUIConfiguration.progressBarUpperPadding)
                         
                         /// Progress bar UI from package
                         progressBar
-                            .padding(.horizontal, sizeUIConfiguration.progressBarPadding)
+                            .padding(.horizontal, sizeUIConfiguration.progressBarHorisontalPadding)
                     }
                    
                     // MARK: - Image Section
