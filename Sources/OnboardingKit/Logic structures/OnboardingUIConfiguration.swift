@@ -56,6 +56,7 @@ public struct SizeUIConfiguration{
     public var textContainerHeight: CGFloat
     public var textHorizontalPadding: CGFloat
     public var textVerticalPadding: CGFloat
+    public var subtitleSpacing: CGFloat
     
     /// Spacers
     public var upperSpacerHeight: CGFloat
@@ -73,6 +74,7 @@ public struct SizeUIConfiguration{
                 textContainerHeight: CGFloat = 152,
                 textHorizontalPadding: CGFloat = 16,
                 textVerticalPadding: CGFloat = 0,
+                subtitleSpacing: CGFloat = 12,
                 upperSpacerHeight: CGFloat = 0,
                 lowerSpacerHeight: CGFloat = 0,
                 buttonContainerHeight: CGFloat = 78) {
@@ -88,6 +90,7 @@ public struct SizeUIConfiguration{
         
         self.textHorizontalPadding = textHorizontalPadding
         self.textVerticalPadding = textVerticalPadding
+        self.subtitleSpacing = subtitleSpacing
         
         self.upperSpacerHeight = upperSpacerHeight/852
         self.lowerSpacerHeight = lowerSpacerHeight/852

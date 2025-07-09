@@ -104,6 +104,7 @@ public struct OnboardingCustomView: View{
                         Text(viewModel.state.currentStep.subtitle)
                             .font(themeStyle.subtitleFont)
                             .foregroundStyle(themeStyle.subtitleTextColor ?? .primary)
+                            .padding(.bottom, sizeUIConfiguration.subtitleSpacing)
                         
                         /// Second subtitle line, lighter with subHeadline font
                         Text(viewModel.state.currentStep.subtitleDescription)
