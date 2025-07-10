@@ -33,9 +33,9 @@ public struct OnboardingThemeStyle{
     
     // MARK: Initialiazer
     ///Custom init
-    public init(titleFont: Font = .title3.bold(),
-                subtitleFont: Font = .headline,
-                descriptionFont: Font = .subheadline,
+    public init(titleFont: Font = .title2,
+                subtitleFont: Font = .title3.bold(),
+                descriptionFont: Font = .body,
                 secondaryTextAlignment: TextAlignment = .center,
                 textHorizontalAlignment: HorizontalAlignment = .center,
                 backgroundColor: Color? = nil,

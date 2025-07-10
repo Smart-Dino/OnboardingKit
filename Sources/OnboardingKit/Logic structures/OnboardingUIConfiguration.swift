@@ -46,7 +46,8 @@ public struct ProgressBarUIConfiguration{
 public struct SizeUIConfiguration{
     //MARK: Properties
     ///ProgressBar Padding
-    public var progressBarPadding: CGFloat
+    public var progressBarHorisontalPadding: CGFloat
+    public var progressBarUpperPadding: CGFloat
     
     ///Image Configurations
     public var imageHeight: CGFloat
@@ -56,6 +57,7 @@ public struct SizeUIConfiguration{
     public var textContainerHeight: CGFloat
     public var textHorizontalPadding: CGFloat
     public var textVerticalPadding: CGFloat
+    public var subtitleSpacing: CGFloat
     
     /// Spacers
     public var upperSpacerHeight: CGFloat
@@ -67,18 +69,20 @@ public struct SizeUIConfiguration{
     
     
     //MARK: Initializer
-    public init(progressBarPadding: CGFloat = 8,
+    public init(progressBarHorisontalPadding: CGFloat = 8,
+                progressBarUpperPadding: CGFloat = 20,
                 imageHeight: CGFloat = 430,
                 imageTopPadding: CGFloat = 20,
                 textContainerHeight: CGFloat = 152,
                 textHorizontalPadding: CGFloat = 16,
                 textVerticalPadding: CGFloat = 0,
+                subtitleSpacing: CGFloat = 12,
                 upperSpacerHeight: CGFloat = 0,
                 lowerSpacerHeight: CGFloat = 0,
                 buttonContainerHeight: CGFloat = 78) {
         /// Calculation for adaptive view of different screens
-        self.progressBarPadding = progressBarPadding
-        
+        self.progressBarHorisontalPadding = progressBarHorisontalPadding
+        self.progressBarUpperPadding = progressBarUpperPadding
         
         self.imageHeight = imageHeight/852
         
@@ -88,6 +92,7 @@ public struct SizeUIConfiguration{
         
         self.textHorizontalPadding = textHorizontalPadding
         self.textVerticalPadding = textVerticalPadding
+        self.subtitleSpacing = subtitleSpacing
         
         self.upperSpacerHeight = upperSpacerHeight/852
         self.lowerSpacerHeight = lowerSpacerHeight/852

@@ -78,10 +78,11 @@ public struct OnboardingCustomView: View{
                             .font(themeStyle.titleFont)
                             .multilineTextAlignment(.center)
                             .foregroundStyle(themeStyle.titleTextColor ?? .primary)
+                            .padding(.bottom, sizeUIConfiguration.progressBarUpperPadding)
                         
                         /// Progress bar UI from package
                         progressBar
-                            .padding(.horizontal, sizeUIConfiguration.progressBarPadding)
+                            .padding(.horizontal, sizeUIConfiguration.progressBarHorisontalPadding)
                     }
                    
                     // MARK: - Image Section
@@ -104,6 +105,7 @@ public struct OnboardingCustomView: View{
                         Text(viewModel.state.currentStep.subtitle)
                             .font(themeStyle.subtitleFont)
                             .foregroundStyle(themeStyle.subtitleTextColor ?? .primary)
+                            .padding(.bottom, sizeUIConfiguration.subtitleSpacing)
                         
                         /// Second subtitle line, lighter with subHeadline font
                         Text(viewModel.state.currentStep.subtitleDescription)
