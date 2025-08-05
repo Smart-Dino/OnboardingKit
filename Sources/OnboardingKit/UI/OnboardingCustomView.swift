@@ -86,14 +86,30 @@ public struct OnboardingCustomView: View{
                     }
                    
                     // MARK: - Image Section
-                    /// Displays current step's image, fills the frame and clips overflow
+                    /// Displays current step's image, or view as an image, fills the frame and clips overflow
                     // TODO: - Update image with actual image
-                    Image(viewModel.state.currentStep.imageName)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width:geometry.size.width, height: geometry.size.height*sizeUIConfiguration.imageHeight)
-                        .clipped()
-                        .padding(.top, sizeUIConfiguration.imageTopPadding)
+                    if let customView = viewModel.state.currentStep.customView {
+                        customView
+                            .aspectRatio(contentMode: viewModel.state.currentStep.imageContentMode)
+                            .frame(
+                                width: geometry.size.width,
+                                height: geometry.size.height * sizeUIConfiguration.imageHeight,
+                                alignment: viewModel.state.currentStep.imageAlignment
+                            )
+                            .clipped()
+                            .padding(.top, sizeUIConfiguration.imageTopPadding)
+                    } else if let imageName = viewModel.state.currentStep.imageName {
+                        Image(imageName)
+                            .resizable()
+                            .aspectRatio(contentMode: viewModel.state.currentStep.imageContentMode)
+                            .frame(
+                                width: geometry.size.width,
+                                height: geometry.size.height * sizeUIConfiguration.imageHeight,
+                                alignment: viewModel.state.currentStep.imageAlignment
+                            )
+                            .clipped()
+                            .padding(.top, sizeUIConfiguration.imageTopPadding)
+                    }
                     
                     /// Spacer ability
                     Spacer()
