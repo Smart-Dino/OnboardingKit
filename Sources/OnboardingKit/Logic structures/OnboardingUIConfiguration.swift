@@ -59,16 +59,13 @@ public struct SizeUIConfiguration{
     public var textVerticalPadding: CGFloat
     public var subtitleSpacing: CGFloat
     
-    /// Spacers
-    public var upperSpacerHeight: CGFloat
-    public var lowerSpacerHeight: CGFloat
-    
     ///Button Configuration
     public var buttonContainerHeight: CGFloat
     
     
     
     //MARK: Initializer
+    @available(*, deprecated, message: "Spacers were removed due to visual issues, use different initializer instead.")
     public init(progressBarHorisontalPadding: CGFloat = 8,
                 progressBarUpperPadding: CGFloat = 20,
                 imageHeight: CGFloat = 430,
@@ -94,8 +91,31 @@ public struct SizeUIConfiguration{
         self.textVerticalPadding = textVerticalPadding
         self.subtitleSpacing = subtitleSpacing
         
-        self.upperSpacerHeight = upperSpacerHeight/852
-        self.lowerSpacerHeight = lowerSpacerHeight/852
+        self.buttonContainerHeight = buttonContainerHeight/852
+    }
+    
+    public init(progressBarHorisontalPadding: CGFloat = 8,
+                progressBarUpperPadding: CGFloat = 20,
+                imageHeight: CGFloat = 430,
+                imageTopPadding: CGFloat = 20,
+                textContainerHeight: CGFloat = 152,
+                textHorizontalPadding: CGFloat = 16,
+                textVerticalPadding: CGFloat = 0,
+                subtitleSpacing: CGFloat = 12,
+                buttonContainerHeight: CGFloat = 78) {
+        /// Calculation for adaptive view of different screens
+        self.progressBarHorisontalPadding = progressBarHorisontalPadding
+        self.progressBarUpperPadding = progressBarUpperPadding
+        
+        self.imageHeight = imageHeight/852
+        
+        self.imageTopPadding = imageTopPadding
+        
+        self.textContainerHeight = textContainerHeight/852
+        
+        self.textHorizontalPadding = textHorizontalPadding
+        self.textVerticalPadding = textVerticalPadding
+        self.subtitleSpacing = subtitleSpacing
         
         self.buttonContainerHeight = buttonContainerHeight/852
     }
