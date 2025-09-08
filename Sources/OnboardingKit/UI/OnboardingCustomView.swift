@@ -111,10 +111,6 @@ public struct OnboardingCustomView: View{
                             .padding(.top, sizeUIConfiguration.imageTopPadding)
                     }
                     
-                    /// Spacer ability
-                    Spacer()
-                        .frame(height: geometry.size.height*sizeUIConfiguration.upperSpacerHeight)
-                    
                     // MARK: - Subtitle Section
                     VStack(alignment: themeStyle.textHorizontalAlignment) {
                         /// First subtitle line, emphasised with headline font
@@ -151,6 +147,7 @@ public struct OnboardingCustomView: View{
                     }
                     .frame(height: geometry.size.height * sizeUIConfiguration.buttonContainerHeight)
                     .padding(.horizontal)
+                    .padding(.bottom)
                 }
                 .animation(.easeInOut, value: viewModel.state.currentStep)
                 .preferredColorScheme(themeStyle.preferedColorTheme)
