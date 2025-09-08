@@ -132,11 +132,7 @@ public struct OnboardingCustomView: View{
                     .padding(.horizontal, sizeUIConfiguration.textHorizontalPadding)
                     .multilineTextAlignment(themeStyle.secondaryTextAlignment)
                     .frame(height: geometry.size.height * sizeUIConfiguration.textContainerHeight)
-                    
-                    /// Spacer ability
-                    Spacer()
-                        .frame(height: geometry.size.height*sizeUIConfiguration.lowerSpacerHeight)
-                    
+                    .minimumScaleFactor(0.5)
                     
                     // MARK: - Buttons
                     /// Shows 'Next' and 'Skip' buttons for first 3 steps
