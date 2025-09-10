@@ -35,6 +35,8 @@ public struct PrimaryButtonStyle: ButtonStyle {
     public let cornerRadius: CGFloat
     /// Pressed state opacity
     public let pressedOpacity: Double
+    /// Button height
+    public let buttonHeight: CGFloat
     
     
     // MARK: Initializer
@@ -45,7 +47,8 @@ public struct PrimaryButtonStyle: ButtonStyle {
         verticalPadding: CGFloat = 7,
         horizontalPadding: CGFloat = 0,
         cornerRadius: CGFloat = 22,
-        pressedOpacity: Double = 0.8
+        pressedOpacity: Double = 0.8,
+        buttonHeight: CGFloat = 200
     ) {
         self.backgroundColor = backgroundColor
         self.foregroundColor = foregroundColor
@@ -53,6 +56,7 @@ public struct PrimaryButtonStyle: ButtonStyle {
         self.horizontalPadding = horizontalPadding
         self.cornerRadius = cornerRadius
         self.pressedOpacity = pressedOpacity
+        self.buttonHeight = buttonHeight
     }
     
     //MARK: Methods
@@ -60,6 +64,7 @@ public struct PrimaryButtonStyle: ButtonStyle {
     public func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(maxWidth: .infinity)
+            .frame(height: buttonHeight)
             .padding(.vertical, verticalPadding)
             .background(backgroundColor)
             .foregroundColor(foregroundColor)
