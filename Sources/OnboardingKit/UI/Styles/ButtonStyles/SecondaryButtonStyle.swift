@@ -41,7 +41,7 @@ public struct SecondaryButtonStyle: ButtonStyle {
         verticalPadding: CGFloat = 7,
         horizontalPadding: CGFloat = 0,
         pressedOpacity: Double = 0.8,
-        buttonHeight: CGFloat = 200
+        buttonHeight: CGFloat = 45
     ) {
         self.backgroundMaterial = backgroundMaterial
         self.verticalPadding = verticalPadding
@@ -53,8 +53,7 @@ public struct SecondaryButtonStyle: ButtonStyle {
     /// Builds the button's body.
     public func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .frame(maxWidth: .infinity)
-            .frame(height: buttonHeight)
+            .frame(maxWidth: .infinity, maxHeight: buttonHeight)
             .padding(.vertical, verticalPadding)
             .background(backgroundMaterial)
             .clipShape(Capsule())
