@@ -48,7 +48,7 @@ public struct PrimaryButtonStyle: ButtonStyle {
         horizontalPadding: CGFloat = 0,
         cornerRadius: CGFloat = 22,
         pressedOpacity: Double = 0.8,
-        buttonHeight: CGFloat = 200
+        buttonHeight: CGFloat = 45
     ) {
         self.backgroundColor = backgroundColor
         self.foregroundColor = foregroundColor
@@ -63,8 +63,7 @@ public struct PrimaryButtonStyle: ButtonStyle {
     /// Builds the button's body.
     public func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .frame(maxWidth: .infinity)
-            .frame(height: buttonHeight)
+            .frame(maxWidth: .infinity, maxHeight: buttonHeight)
             .padding(.vertical, verticalPadding)
             .background(backgroundColor)
             .foregroundColor(foregroundColor)
